@@ -30,9 +30,6 @@
             line-height: 1.6;
         }
 
-        /* =============================================
-           MOUNTAIN SUNSET BACKGROUND
-        ============================================= */
         #sky-canvas {
             position: fixed;
             top: 0; left: 0;
@@ -85,9 +82,7 @@
             top: -200px;
         }
 
-        /* =============================================
-           NAVIGATION
-        ============================================= */
+      
         nav {
             position: fixed;
             top: 24px;
@@ -121,9 +116,6 @@
         .nav-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
         .nav-btn.active { background: var(--primary); color: white; box-shadow: 0 1px 3px rgba(37,99,235,0.3); }
 
-        /* =============================================
-           HERO SECTION
-        ============================================= */
         header {
             height: 65vh;
             display: flex;
@@ -180,9 +172,6 @@
             text-shadow: 0 1px 8px rgba(0,0,0,0.7);
         }
 
-        /* =============================================
-           SECTIONS
-        ============================================= */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -200,9 +189,7 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* =============================================
-           CARDS
-        ============================================= */
+      
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 400px;
@@ -282,9 +269,7 @@
 
         .profile-frame:hover img { transform: scale(1.05); }
 
-        /* =============================================
-           EDUCATION GRID
-        ============================================= */
+     
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -368,32 +353,27 @@
 </head>
 <body>
 
-    <!-- =============================================
-         MOUNTAIN SUNSET BACKGROUND
-    ============================================= -->
+   
     <canvas id="sky-canvas"></canvas>
 
-    <!-- Mountain silhouettes SVG -->
+ 
     <svg id="mountain-svg" viewBox="0 0 1400 400" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
-        <!-- Far distant mountains -->
+      
         <path d="M0,400 L0,300 L80,220 L160,270 L260,170 L340,230 L420,150 L520,210 L600,130 L700,80 L800,130 L900,70 L1000,120 L1100,160 L1200,100 L1300,170 L1400,130 L1400,400 Z" fill="#1a1a2e" opacity="0.55"/>
-        <!-- Mid mountains -->
+  
         <path d="M0,400 L0,340 L100,280 L200,300 L300,240 L400,260 L500,200 L600,240 L680,180 L760,220 L840,160 L940,190 L1040,240 L1120,200 L1220,260 L1300,220 L1400,260 L1400,400 Z" fill="#12121f" opacity="0.8"/>
-        <!-- Near mountains -->
+      
         <path d="M0,400 L0,360 L120,310 L200,330 L320,270 L440,290 L540,250 L620,270 L700,230 L780,270 L860,240 L960,270 L1060,290 L1140,260 L1240,300 L1340,270 L1400,290 L1400,400 Z" fill="#0d0d1a"/>
-        <!-- Foreground ridge -->
+ 
         <path d="M0,400 L0,385 L200,365 L400,375 L600,360 L800,370 L1000,360 L1200,375 L1400,365 L1400,400 Z" fill="#080810"/>
     </svg>
 
-    <!-- Stars layer -->
+o
     <div id="stars-layer"></div>
 
-    <!-- Matrix rain layer -->
+  
     <div id="matrix-layer"></div>
 
-    <!-- =============================================
-         PAGE CONTENT
-    ============================================= -->
     <nav>
         <div class="nav-container">
             <button class="nav-btn active" onclick="showSection('home', this)">Overview</button>
@@ -410,7 +390,7 @@
 
     <div class="container">
 
-        <!-- HOME SECTION -->
+     
         <section id="home" class="section active">
             <div class="about-grid">
                 <div class="glass-card">
@@ -439,7 +419,7 @@
             </div>
         </section>
 
-        <!-- EDUCATION SECTION -->
+       
         <section id="education" class="section">
             <div class="bento-grid">
                 <div class="bento-item">
@@ -463,7 +443,6 @@
             </div>
         </section>
 
-        <!-- ACHIEVEMENTS SECTION -->
         <section id="achievements" class="section">
             <div class="glass-card">
                 <h2 style="margin-bottom:32px;font-weight:600;font-size:2rem;letter-spacing:-0.02em;">Honors & Recognition</h2>
@@ -502,11 +481,9 @@
 
     </div>
 
-    <!-- =============================================
-         SCRIPTS
-    ============================================= -->
+   
     <script>
-        // ── MOUNTAIN SUNSET SKY ──────────────────────────────────────────
+
         const canvas = document.getElementById('sky-canvas');
         const ctx = canvas.getContext('2d');
         const starsLayer = document.getElementById('stars-layer');
@@ -533,7 +510,7 @@
         function rgba(c, a)  { return `rgba(${c.r},${c.g},${c.b},${a})`; }
         function easeInOut(t){ return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
 
-        // Sunset → Night color stops
+    
         const SKY = {
             top:         [{ r:20,  g:15,  b:60  }, { r:5,  g:5,  b:20  }],
             mid:         [{ r:180, g:70,  b:30  }, { r:10, g:10, b:30  }],
