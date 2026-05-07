@@ -1,13 +1,3 @@
-To make your UI feel much more complex, premium, and visually stunning, I have completely upgraded your background and the "glassmorphism" effects of your cards. 
-
-Since you are studying Computer Science and Networking, I designed a **"Cyber-Tech" aesthetic**. Here is what is new:
-1. **The Background:** It now features a moving 3D digital grid (representing networking/web), combined with 3 glowing, floating orbs (Orange, Cyan, and Purple), and a subtle "film grain/noise" overlay that makes it look like a high-end modern website.
-2. **The Hero Section:** Added a cool typing animation to your job title.
-3. **The Cards:** Upgraded the glass effect with gradient borders and a much smoother, colored hover glow.
-
-Here is your upgraded code. Just copy and paste this entirely:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,17 +7,13 @@ Here is your upgraded code. Just copy and paste this entirely:
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Upgraded Color Palette */
             --primary: #ff8000;
-            --secondary: #00f0ff;
-            --accent: #8a2be2;
-            --primary-glow: rgba(255, 128, 0, 0.4);
-            --bg-base: #02040a;
-            --card-bg: rgba(10, 15, 30, 0.5);
+            --primary-glow: rgba(255, 128, 0, 0.35);
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
             --border: rgba(255, 255, 255, 0.08);
-            --border-glow: rgba(255, 255, 255, 0.15);
-            --text: #ffffff;
-            --text-dim: #a1a1aa;
+            --text: #f9fafb;
+            --text-dim: #9ca3af;
         }
 
         * {
@@ -39,125 +25,187 @@ Here is your upgraded code. Just copy and paste this entirely:
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-base);
+            background-color: var(--bg);
             color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* =========================================
-           COMPLEX ANIMATED BACKGROUND SYSTEM
-           ========================================= */
-        .bg-system {
+        /* --- ULTRA COMPLEX ANIMATED BACKGROUND --- */
+        .bg-wrapper {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             z-index: -1;
             overflow: hidden;
-            background: radial-gradient(circle at center, #0a0f1a 0%, var(--bg-base) 100%);
+            background: linear-gradient(135deg, #0a0e27 0%, #030712 50%, #0f0a1e 100%);
         }
 
-        /* 1. Animated Tech Grid */
-        .bg-grid {
+        /* Animated gradient overlay */
+        .bg-wrapper::before {
+            content: '';
             position: absolute;
             width: 200%;
             height: 200%;
-            top: -50%;
-            left: -50%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 128, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-5%, 5%) rotate(120deg); }
+            66% { transform: translate(5%, -5%) rotate(240deg); }
+        }
+
+        /* Animated grid pattern */
+        .grid-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            transform: perspective(600px) rotateX(60deg) translateY(0);
-            animation: gridPan 15s linear infinite;
-            mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 60%);
-            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 60%);
+            background-size: 50px 50px;
+            animation: gridMove 30s linear infinite;
+            mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black 40%, transparent 100%);
         }
 
-        @keyframes gridPan {
-            0% { transform: perspective(600px) rotateX(60deg) translateY(0); }
-            100% { transform: perspective(600px) rotateX(60deg) translateY(40px); }
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
-        /* 2. Floating Glowing Orbs */
-        .orb {
+        /* Multiple animated blobs */
+        .blob {
             position: absolute;
-            border-radius: 50%;
+            width: 600px;
+            height: 600px;
+            background: var(--primary-glow);
             filter: blur(120px);
+            border-radius: 50%;
+            z-index: -1;
+            animation: move 25s infinite alternate ease-in-out;
             opacity: 0.5;
-            animation: float 20s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
 
-        .orb-1 { width: 400px; height: 400px; background: var(--primary); top: 10%; left: 10%; }
-        .orb-2 { width: 500px; height: 500px; background: var(--secondary); bottom: -10%; right: 10%; animation-duration: 25s; animation-direction: alternate-reverse; }
-        .orb-3 { width: 300px; height: 300px; background: var(--accent); top: 40%; left: 50%; animation-duration: 30s; }
+        .blob-2 {
+            right: -100px;
+            top: 20%;
+            background: rgba(79, 70, 229, 0.3);
+            animation-duration: 35s;
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            left: 10%;
+            bottom: -200px;
+            background: rgba(236, 72, 153, 0.25);
+            animation-duration: 30s;
+            animation-delay: -10s;
+            width: 500px;
+            height: 500px;
+        }
+
+        @keyframes move {
+            0% { transform: translate(-20%, -20%) scale(1) rotate(0deg); }
+            33% { transform: translate(10%, 10%) scale(1.1) rotate(120deg); }
+            66% { transform: translate(-10%, 20%) scale(0.9) rotate(240deg); }
+            100% { transform: translate(20%, -10%) scale(1.2) rotate(360deg); }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
 
         @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(10vw, 15vh) scale(1.2); }
-            100% { transform: translate(-10vw, -10vh) scale(0.9); }
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
 
-        /* 3. Premium Noise Overlay */
-        .bg-noise {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.04;
-            z-index: 999;
+        /* Scanline effect */
+        .scanline {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 128, 0, 0.5), transparent);
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        /* Vignette effect */
+        .vignette {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.8);
             pointer-events: none;
         }
 
-        /* =========================================
-           NAVIGATION
-           ========================================= */
+        /* --- NAVIGATION --- */
         nav {
             position: fixed;
             top: 30px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1000;
-            background: rgba(10, 15, 30, 0.6);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            padding: 8px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            padding: 6px;
             border-radius: 100px;
             border: 1px solid var(--border);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        .nav-container { display: flex; gap: 4px; }
+        .nav-container { display: flex; gap: 8px; }
 
         .nav-btn {
             background: transparent;
             color: var(--text-dim);
-            padding: 12px 28px;
+            padding: 12px 24px;
             border-radius: 100px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s;
             font-weight: 600;
             border: none;
             cursor: pointer;
             font-size: 0.85rem;
             letter-spacing: 0.5px;
-            position: relative;
-            overflow: hidden;
         }
 
-        .nav-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+        .nav-btn:hover { color: var(--text); }
 
         .nav-btn.active {
-            background: linear-gradient(135deg, var(--primary), #e65c00);
+            background: var(--primary);
             color: white;
-            box-shadow: 0 8px 20px -5px var(--primary-glow);
+            box-shadow: 0 10px 20px -5px var(--primary-glow);
         }
 
-        /* =========================================
-           HERO SECTION & TYPING EFFECT
-           ========================================= */
+        /* --- HERO SECTION --- */
         header {
-            height: 70vh;
+            height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -168,210 +216,272 @@ Here is your upgraded code. Just copy and paste this entirely:
         }
 
         .badge {
-            background: rgba(255, 128, 0, 0.1);
+            background: var(--primary-glow);
             color: var(--primary);
-            padding: 6px 20px;
+            padding: 5px 15px;
             border-radius: 50px;
             font-size: 0.75rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 128, 0, 0.3);
-            box-shadow: 0 0 20px rgba(255, 128, 0, 0.2);
+            margin-bottom: 20px;
+            border: 1px solid var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         header h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(3.5rem, 10vw, 6rem);
+            font-size: clamp(3rem, 10vw, 5rem);
             line-height: 1;
-            margin-bottom: 15px;
-            font-weight: 800;
-            background: linear-gradient(to right, #ffffff, #a1a1aa);
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #ff8000 50%, #ffffff 100%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: shimmer 3s linear infinite;
         }
 
-        .typing-container {
-            display: inline-block;
+        @keyframes shimmer {
+            to { background-position: 200% center; }
         }
 
-        .typing-text {
-            color: var(--secondary);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            font-weight: 600;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 2px solid var(--secondary);
-            margin: 0 auto;
-            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
-        }
-
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--secondary); } }
-
-        /* =========================================
-           SECTIONS & GLASS CARDS
-           ========================================= */
+        /* --- SECTIONS --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px 100px;
-            position: relative;
-            z-index: 10;
         }
 
         .section { display: none; }
-        .section.active { display: block; animation: sectionFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .section.active { display: block; animation: sectionFade 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
 
         @keyframes sectionFade {
-            from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+            from { opacity: 0; transform: translateY(40px) scale(0.95); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
 
-        /* UPGRADED GLASS CARD */
+        /* --- ABOUT CARD (Complex) --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+        }
+
         .glass-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-top: 1px solid var(--border-glow);
-            border-left: 1px solid var(--border-glow);
             border-radius: 32px;
-            padding: 45px;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            padding: 40px;
+            backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        .about-grid { display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
 
-        .about-text { font-size: 1.15rem; color: var(--text-dim); margin-bottom: 40px; }
+        .glass-card:hover::before {
+            left: 100%;
+        }
 
-        .contact-pill-container { display: flex; flex-wrap: wrap; gap: 12px; }
+        .about-text {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+        }
+
+        .contact-pill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
 
         .contact-pill {
-            background: rgba(255,255,255,0.03);
-            padding: 12px 24px;
-            border-radius: 14px;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 20px;
+            border-radius: 12px;
             border: 1px solid var(--border);
             font-size: 0.9rem;
-            transition: 0.3s;
+            transition: all 0.3s;
         }
-        
+
         .contact-pill:hover {
+            background: rgba(255, 128, 0, 0.1);
             border-color: var(--primary);
-            background: rgba(255, 128, 0, 0.05);
             transform: translateY(-2px);
         }
 
-        .contact-pill span { color: var(--primary); font-weight: 800; margin-right: 8px; }
+        .contact-pill span {
+            color: var(--primary);
+            font-weight: 800;
+            margin-right: 8px;
+        }
 
         .profile-frame {
             width: 100%;
-            height: 100%;
-            min-height: 400px;
+            height: 500px;
             border-radius: 24px;
             overflow: hidden;
-            border: 1px solid var(--border);
+            border: 2px solid var(--primary);
             position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 60px rgba(255, 128, 0, 0.3);
         }
 
         .profile-frame::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
-            pointer-events: none;
+            inset: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 128, 0, 0.1) 50%, transparent 70%);
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .profile-frame:hover::after {
+            opacity: 1;
         }
 
         .profile-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.5s;
         }
 
-        .profile-frame:hover img { transform: scale(1.08) rotate(1deg); }
+        .profile-frame:hover img { transform: scale(1.05); }
 
-        /* =========================================
-           BENTO GRID (EDUCATION)
-           ========================================= */
-        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        /* --- EDUCATION BENTO GRID --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
 
         .bento-item {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 28px;
-            padding: 35px;
-            backdrop-filter: blur(12px);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 24px;
+            padding: 30px;
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
         }
 
+        .bento-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--primary-glow), transparent 30%);
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .bento-item:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .bento-item::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            z-index: 0;
+        }
+
+        .bento-item > * {
+            position: relative;
+            z-index: 1;
+        }
+
         .bento-item:hover {
+            border-color: var(--primary);
             transform: translateY(-5px);
-            border-color: var(--secondary);
-            box-shadow: 0 15px 30px rgba(0, 240, 255, 0.1);
         }
 
         .bento-item img {
-            width: 65px; height: 65px; margin-bottom: 25px; border-radius: 16px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            border: 1px solid var(--border);
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+            border-radius: 12px;
         }
 
-        .bento-item h3 { margin-bottom: 12px; font-family: 'Space Grotesk'; font-size: 1.4rem; }
-        .year-tag { color: var(--secondary); font-weight: 800; font-size: 0.85rem; margin-bottom: 5px; display: inline-block; letter-spacing: 1px; }
+        .bento-item h3 { margin-bottom: 10px; font-family: 'Space Grotesk'; }
+        .year-tag { color: var(--primary); font-weight: 800; font-size: 0.8rem; }
 
-        /* =========================================
-           ACHIEVEMENTS
-           ========================================= */
-        .award-list { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+        /* --- ACHIEVEMENTS --- */
+        .award-list {
+            list-style: none;
+        }
 
         .award-item {
-            display: flex; align-items: center; gap: 20px; padding: 20px 25px;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            transition: 0.4s;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            transition: 0.3s;
         }
 
-        .award-item:hover {
-            background: rgba(255,255,255,0.05);
-            border-color: var(--primary);
-            transform: translateX(10px);
+        .award-item:hover { 
+            background: rgba(255,255,255,0.02); 
+            padding-left: 30px;
+            border-left: 3px solid var(--primary);
         }
 
         .award-icon {
             font-size: 1.5rem;
-            background: linear-gradient(135deg, rgba(255,128,0,0.2), rgba(255,128,0,0.05));
-            width: 55px; height: 55px; display: flex; align-items: center; justify-content: center;
-            border-radius: 16px; border: 1px solid rgba(255,128,0,0.3);
+            background: var(--primary-glow);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .award-item:hover .award-icon {
+            transform: scale(1.2) rotate(10deg);
         }
 
         @media (max-width: 900px) {
-            .about-grid { grid-template-columns: 1fr; }
-            .profile-frame { height: 350px; min-height: unset; }
-            .bento-grid { grid-template-columns: 1fr; }
-            header h1 { font-size: 3rem; }
+            .about-grid, .bento-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 3.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NEW COMPLEX BACKGROUND SYSTEM -->
-    <div class="bg-noise"></div>
-    <div class="bg-system">
-        <div class="bg-grid"></div>
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
+    <div class="bg-wrapper">
+        <div class="grid-overlay"></div>
+        <div class="blob"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="particles" id="particles"></div>
+        <div class="scanline"></div>
+        <div class="vignette"></div>
     </div>
 
     <nav>
@@ -385,10 +495,7 @@ Here is your upgraded code. Just copy and paste this entirely:
     <header>
         <div class="badge">Available for Work</div>
         <h1>Edezie Agaled</h1>
-        <div class="typing-container">
-            <!-- Typing Animation applied here -->
-            <div class="typing-text">Software & Networking Engineer</div>
-        </div>
+        <p style="color: var(--text-dim); letter-spacing: 4px; text-transform: uppercase; font-size: 0.8rem;">Software & Networking Engineer</p>
     </header>
 
     <div class="container">
@@ -397,9 +504,7 @@ Here is your upgraded code. Just copy and paste this entirely:
         <section id="home" class="section active">
             <div class="about-grid">
                 <div class="glass-card">
-                    <h2 style="font-family: 'Space Grotesk'; font-size: 2.8rem; margin-bottom: 25px; line-height: 1.1;">
-                        Building the future <br><span style="color: var(--primary)">of the web.</span>
-                    </h2>
+                    <h2 style="font-family: 'Space Grotesk'; font-size: 2.5rem; margin-bottom: 20px;">Building the future <span style="color: var(--primary)">of web.</span></h2>
                     <p class="about-text">
                         I am a dedicated software engineer specializing in modern user interfaces and backend infrastructure. My approach combines technical precision with creative problem-solving to deliver impactful digital experiences.
                     </p>
@@ -418,19 +523,19 @@ Here is your upgraded code. Just copy and paste this entirely:
         <!-- EDUCATION SECTION -->
         <section id="education" class="section">
             <div class="bento-grid">
-                <div class="bento-item glass-card" style="padding: 35px;">
+                <div class="bento-item">
                     <img src="Screenshot 2025-11-19 211813/Screenshot 2025-11-19 211813.png" alt="Sabangan">
                     <div class="year-tag">2013 — 2019</div>
                     <h3>Sabangan Central</h3>
                     <p style="color: var(--text-dim)">Primary education foundation in Mt. Province.</p>
                 </div>
-                <div class="bento-item glass-card" style="padding: 35px;">
+                <div class="bento-item">
                     <img src="Screenshot 2025-11-19 211813/Screenshot 2025-11-18 175701.png" alt="High School">
                     <div class="year-tag">2019 — 2025</div>
                     <h3>San Alphonso High</h3>
                     <p style="color: var(--text-dim)">Secondary education focusing on STEM and leadership.</p>
                 </div>
-                <div class="bento-item glass-card" style="padding: 35px;">
+                <div class="bento-item">
                     <img src="Screenshot 2025-11-19 211813/Screenshot 2025-11-18 174232.png" alt="University">
                     <div class="year-tag">2025 — PRESENT</div>
                     <h3>Univ. of Cordilleras</h3>
@@ -442,34 +547,34 @@ Here is your upgraded code. Just copy and paste this entirely:
         <!-- ACHIEVEMENTS SECTION -->
         <section id="achievements" class="section">
             <div class="glass-card">
-                <h2 style="margin-bottom: 30px; font-family: 'Space Grotesk'; font-size: 2.2rem;">Honors & Recognition</h2>
+                <h2 style="margin-bottom: 30px; font-family: 'Space Grotesk';">Honors & Recognition</h2>
                 <div class="award-list">
                     <div class="award-item">
                         <div class="award-icon">🎨</div>
                         <div>
-                            <h4 style="font-size: 1.1rem; margin-bottom: 4px;">1st Place: Municipal Poster Making</h4>
-                            <p style="color: var(--text-dim); font-size: 0.95rem;">Recognition for visual communication and design.</p>
+                            <h4>1st Place: Municipal Poster Making</h4>
+                            <p style="color: var(--text-dim)">Recognition for visual communication and design.</p>
                         </div>
                     </div>
                     <div class="award-item">
                         <div class="award-icon">🏊</div>
                         <div>
-                            <h4 style="font-size: 1.1rem; margin-bottom: 4px;">CARAA Swimmer (2015-2025)</h4>
-                            <p style="color: var(--text-dim); font-size: 0.95rem;">Decade-long competitive athletic achievement.</p>
+                            <h4>CARAA Swimmer (2015-2025)</h4>
+                            <p style="color: var(--text-dim)">Decade-long competitive athletic achievement.</p>
                         </div>
                     </div>
                     <div class="award-item">
                         <div class="award-icon">✨</div>
                         <div>
-                            <h4 style="font-size: 1.1rem; margin-bottom: 4px;">Graduated With Honors</h4>
-                            <p style="color: var(--text-dim); font-size: 0.95rem;">Academic excellence throughout senior years.</p>
+                            <h4>Graduated With Honors</h4>
+                            <p style="color: var(--text-dim)">Academic excellence throughout senior years.</p>
                         </div>
                     </div>
                     <div class="award-item">
                         <div class="award-icon">🕺</div>
                         <div>
-                            <h4 style="font-size: 1.1rem; margin-bottom: 4px;">Best Cultural Dancer</h4>
-                            <p style="color: var(--text-dim); font-size: 0.95rem;">Excellence in traditional arts (2016-2017).</p>
+                            <h4>Best Cultural Dancer</h4>
+                            <p style="color: var(--text-dim)">Excellence in traditional arts (2016-2017).</p>
                         </div>
                     </div>
                 </div>
@@ -479,44 +584,37 @@ Here is your upgraded code. Just copy and paste this entirely:
     </div>
 
     <script>
-        // Section Switching Logic
+        // GENERATE FLOATING PARTICLES
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
         function showSection(sectionId, btn) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
-            
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // UPGRADED SPOTLIGHT EFFECT
-        // Tracks mouse movement and applies a dynamic soft glow using CSS variables
-        document.querySelectorAll('.glass-card, .bento-item, .award-item').forEach(card => {
+        // SPOTLIGHT EFFECT
+        document.querySelectorAll('.glass-card, .bento-item').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
-                // Uses the primary orange color for the hover light
-                card.style.background = `
-                    radial-gradient(circle 250px at ${x}px ${y}px, rgba(255, 128, 0, 0.08), transparent 80%),
-                    var(--card-bg)
-                `;
+                card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,128,0,0.15) 0%, transparent 50%), var(--card-bg)`;
             });
-            
             card.addEventListener('mouseleave', () => {
-                // Resets background when mouse leaves
                 card.style.background = 'var(--card-bg)';
             });
         });
     </script>
 </body>
 </html>
-```
-
-### What makes this "More Complex & Beautiful"?
-*   **The 3D Perspective Grid (`.bg-grid`):** I used CSS `transform: perspective()` and `linear-gradient` to create a floor that looks like you are inside a digital network. It slowly moves forward constantly.
-*   **The Cyber Noise (`.bg-noise`):** If you look very closely at the dark background, there is a static "film grain" effect. This is an advanced UI trick used by top designers (like Apple and Vercel) to make the screen look like real physical material rather than flat pixels.
-*   **Typing Animation (`.typing-text`):** In the header, your job title now automatically types itself out like a command-line terminal when the page loads.
-*   **Enhanced Shadows & Highlights:** The glass cards now have a bright highlight on the top and left edges (`border-top`, `border-left`), combined with a deep shadow underneath. This tricks the eye into seeing it as a real piece of 3D glass floating on the screen!
