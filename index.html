@@ -20,105 +20,74 @@
             --matrix-green: #00ff41;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg);
+            background-color: #080810;
             color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* --- SOPHISTICATED MATRIX BACKGROUND --- */
-        .bg-wrapper {
+        /* =============================================
+           MOUNTAIN SUNSET BACKGROUND
+        ============================================= */
+        #sky-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            background: linear-gradient(180deg, #0a0e1a 0%, #050810 100%);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -3;
         }
 
-        /* Matrix rain effect - only on sides */
-        .matrix-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        #mountain-svg {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%; height: 65%;
+            z-index: -2;
+            overflow: visible;
+        }
+
+        #stars-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 55%;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        #matrix-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0;
             overflow: hidden;
-            opacity: 0.15;
+        }
+
+        @keyframes matrixFall {
+            0%   { top: -200px; opacity: 0; }
+            5%   { opacity: 0.9; }
+            90%  { opacity: 0.9; }
+            100% { top: 100vh; opacity: 0; }
         }
 
         .matrix-column {
             position: absolute;
-            top: -100%;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--matrix-green);
-            text-shadow: 0 0 8px var(--matrix-green);
-            animation: matrixFall linear infinite;
-            white-space: nowrap;
-            pointer-events: none;
+            text-shadow: 0 0 6px var(--matrix-green);
+            line-height: 1.4;
+            animation: matrixFall linear forwards;
+            top: -200px;
         }
 
-        @keyframes matrixFall {
-            0% { top: -100%; opacity: 0; }
-            5% { opacity: 1; }
-            95% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
-        }
-
-        /* Subtle gradient orbs */
-        .gradient-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.2;
-            animation: orbFloat 20s ease-in-out infinite;
-        }
-
-        .orb-1 {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.4) 0%, transparent 70%);
-            top: -100px;
-            left: -100px;
-        }
-
-        .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%);
-            bottom: -50px;
-            right: -50px;
-            animation-delay: -10s;
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-        }
-
-        /* Mesh grid overlay */
-        .mesh-grid {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(37, 99, 235, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
-        }
-
-        /* --- FORMAL NAVIGATION --- */
+        /* =============================================
+           NAVIGATION
+        ============================================= */
         nav {
             position: fixed;
             top: 24px;
@@ -130,16 +99,10 @@
             padding: 4px;
             border-radius: 12px;
             border: 1px solid var(--border);
-            box-shadow: 
-                0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 2px 4px -1px rgba(0, 0, 0, 0.06),
-                0 0 0 1px rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.05);
         }
 
-        .nav-container { 
-            display: flex; 
-            gap: 4px; 
-        }
+        .nav-container { display: flex; gap: 4px; }
 
         .nav-btn {
             background: transparent;
@@ -155,20 +118,12 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .nav-btn:hover { 
-            color: var(--text); 
-            background: rgba(255, 255, 255, 0.05);
-        }
+        .nav-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+        .nav-btn.active { background: var(--primary); color: white; box-shadow: 0 1px 3px rgba(37,99,235,0.3); }
 
-        .nav-btn.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 
-                0 1px 3px 0 rgba(37, 99, 235, 0.3),
-                0 1px 2px 0 rgba(37, 99, 235, 0.2);
-        }
-
-        /* --- PROFESSIONAL HERO SECTION --- */
+        /* =============================================
+           HERO SECTION
+        ============================================= */
         header {
             height: 65vh;
             display: flex;
@@ -177,7 +132,6 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            position: relative;
         }
 
         .status-badge {
@@ -198,60 +152,57 @@
 
         .status-badge::before {
             content: '';
-            width: 6px;
-            height: 6px;
+            width: 6px; height: 6px;
             background: var(--accent);
             border-radius: 50%;
             box-shadow: 0 0 8px var(--accent);
             animation: pulse 2s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
         header h1 {
-            font-family: 'Inter', sans-serif;
             font-size: clamp(2.5rem, 8vw, 4.5rem);
             line-height: 1.1;
             margin-bottom: 16px;
             font-weight: 700;
             letter-spacing: -0.03em;
             color: var(--text);
+            text-shadow: 0 2px 20px rgba(0,0,0,0.6);
         }
 
         header p.subtitle {
-            color: var(--text-secondary);
+            color: #d1d5db;
             font-size: 1.125rem;
             font-weight: 400;
-            letter-spacing: -0.01em;
             max-width: 600px;
             margin: 0 auto;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.7);
         }
 
-        /* --- SECTIONS --- */
+        /* =============================================
+           SECTIONS
+        ============================================= */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px 100px;
         }
 
-        .section { 
-            display: none; 
-        }
-        
-        .section.active { 
-            display: block; 
-            animation: sectionFade 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+        .section { display: none; }
+        .section.active {
+            display: block;
+            animation: sectionFade 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes sectionFade {
             from { opacity: 0; transform: translateY(24px); }
-            to { opacity: 1; transform: translateY(0); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- REFINED CARDS --- */
+        /* =============================================
+           CARDS
+        ============================================= */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 400px;
@@ -266,17 +217,13 @@
             backdrop-filter: blur(12px) saturate(180%);
             position: relative;
             overflow: hidden;
-            box-shadow: 
-                0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
             transition: all 0.3s ease;
         }
 
         .glass-card:hover {
             border-color: rgba(37, 99, 235, 0.3);
-            box-shadow: 
-                0 10px 15px -3px rgba(0, 0, 0, 0.1),
-                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
         }
 
         .about-text {
@@ -286,14 +233,10 @@
             margin-bottom: 32px;
         }
 
-        .contact-pill-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .contact-pill-container { display: flex; flex-direction: column; gap: 12px; }
 
         .contact-pill {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             padding: 14px 18px;
             border-radius: 10px;
             border: 1px solid var(--border);
@@ -320,35 +263,28 @@
             min-width: 70px;
         }
 
-        .contact-pill .value {
-            color: var(--text);
-            font-weight: 500;
-        }
+        .contact-pill .value { color: var(--text); font-weight: 500; }
 
         .profile-frame {
-            width: 100%;
-            height: 500px;
+            width: 100%; height: 500px;
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--border);
             position: relative;
-            box-shadow: 
-                0 20px 25px -5px rgba(0, 0, 0, 0.1),
-                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
         }
 
         .profile-frame img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
             transition: transform 0.4s ease;
         }
 
-        .profile-frame:hover img { 
-            transform: scale(1.05); 
-        }
+        .profile-frame:hover img { transform: scale(1.05); }
 
-        /* --- EDUCATION GRID --- */
+        /* =============================================
+           EDUCATION GRID
+        ============================================= */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -368,40 +304,37 @@
         .bento-item:hover {
             border-color: var(--primary);
             transform: translateY(-4px);
-            box-shadow: 
-                0 10px 15px -3px rgba(0, 0, 0, 0.1),
-                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
         }
 
         .bento-item img {
-            width: 56px;
-            height: 56px;
+            width: 56px; height: 56px;
             margin-bottom: 20px;
             border-radius: 12px;
             object-fit: cover;
         }
 
-        .bento-item h3 { 
-            margin-bottom: 8px; 
+        .bento-item h3 {
+            margin-bottom: 8px;
             font-weight: 600;
             font-size: 1.125rem;
             letter-spacing: -0.01em;
         }
 
-        .year-tag { 
-            color: var(--primary); 
-            font-weight: 600; 
-            font-size: 0.75rem; 
+        .year-tag {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 8px;
             display: block;
         }
 
-        /* --- ACHIEVEMENTS --- */
-        .award-list {
-            list-style: none;
-        }
+        /* =============================================
+           ACHIEVEMENTS
+        ============================================= */
+        .award-list { list-style: none; }
 
         .award-item {
             display: flex;
@@ -412,39 +345,20 @@
             transition: all 0.2s ease;
         }
 
-        .award-item:last-child {
-            border-bottom: none;
-        }
-
-        .award-item:hover { 
-            background: rgba(255, 255, 255, 0.02); 
-            padding-left: 32px;
-        }
+        .award-item:last-child { border-bottom: none; }
+        .award-item:hover { background: rgba(255,255,255,0.02); padding-left: 32px; }
 
         .award-icon {
             font-size: 1.5rem;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: linear-gradient(135deg, rgba(37,99,235,0.1) 0%, rgba(16,185,129,0.1) 100%);
+            width: 48px; height: 48px; min-width: 48px;
+            display: flex; align-items: center; justify-content: center;
             border-radius: 12px;
             border: 1px solid var(--border);
         }
 
-        .award-content h4 {
-            font-weight: 600;
-            margin-bottom: 4px;
-            font-size: 1rem;
-        }
-
-        .award-content p {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            line-height: 1.5;
-        }
+        .award-content h4 { font-weight: 600; margin-bottom: 4px; font-size: 1rem; }
+        .award-content p { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5; }
 
         @media (max-width: 900px) {
             .about-grid, .bento-grid { grid-template-columns: 1fr; }
@@ -454,13 +368,32 @@
 </head>
 <body>
 
-    <div class="bg-wrapper">
-        <div class="mesh-grid"></div>
-        <div class="gradient-orb orb-1"></div>
-        <div class="gradient-orb orb-2"></div>
-        <div class="matrix-container" id="matrixRain"></div>
-    </div>
+    <!-- =============================================
+         MOUNTAIN SUNSET BACKGROUND
+    ============================================= -->
+    <canvas id="sky-canvas"></canvas>
 
+    <!-- Mountain silhouettes SVG -->
+    <svg id="mountain-svg" viewBox="0 0 1400 400" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+        <!-- Far distant mountains -->
+        <path d="M0,400 L0,300 L80,220 L160,270 L260,170 L340,230 L420,150 L520,210 L600,130 L700,80 L800,130 L900,70 L1000,120 L1100,160 L1200,100 L1300,170 L1400,130 L1400,400 Z" fill="#1a1a2e" opacity="0.55"/>
+        <!-- Mid mountains -->
+        <path d="M0,400 L0,340 L100,280 L200,300 L300,240 L400,260 L500,200 L600,240 L680,180 L760,220 L840,160 L940,190 L1040,240 L1120,200 L1220,260 L1300,220 L1400,260 L1400,400 Z" fill="#12121f" opacity="0.8"/>
+        <!-- Near mountains -->
+        <path d="M0,400 L0,360 L120,310 L200,330 L320,270 L440,290 L540,250 L620,270 L700,230 L780,270 L860,240 L960,270 L1060,290 L1140,260 L1240,300 L1340,270 L1400,290 L1400,400 Z" fill="#0d0d1a"/>
+        <!-- Foreground ridge -->
+        <path d="M0,400 L0,385 L200,365 L400,375 L600,360 L800,370 L1000,360 L1200,375 L1400,365 L1400,400 Z" fill="#080810"/>
+    </svg>
+
+    <!-- Stars layer -->
+    <div id="stars-layer"></div>
+
+    <!-- Matrix rain layer -->
+    <div id="matrix-layer"></div>
+
+    <!-- =============================================
+         PAGE CONTENT
+    ============================================= -->
     <nav>
         <div class="nav-container">
             <button class="nav-btn active" onclick="showSection('home', this)">Overview</button>
@@ -476,12 +409,12 @@
     </header>
 
     <div class="container">
-        
+
         <!-- HOME SECTION -->
         <section id="home" class="section active">
             <div class="about-grid">
                 <div class="glass-card">
-                    <h2 style="font-size: 2rem; margin-bottom: 16px; font-weight: 600; letter-spacing: -0.02em;">Professional Background</h2>
+                    <h2 style="font-size:2rem;margin-bottom:16px;font-weight:600;letter-spacing:-0.02em;">Professional Background</h2>
                     <p class="about-text">
                         Dedicated computer science student with a strong foundation in software development and systems architecture. Experienced in designing modern web interfaces and implementing robust backend solutions with a focus on scalability and user experience.
                     </p>
@@ -513,19 +446,19 @@
                     <img src="Screenshot 2025-11-19 211813/Screenshot 2025-11-19 211813.png" alt="Sabangan Central School">
                     <span class="year-tag">2013 — 2019</span>
                     <h3>Sabangan Central School</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.6;">Primary education with focus on foundational academics in Mountain Province.</p>
+                    <p style="color:var(--text-secondary);line-height:1.6;">Primary education with focus on foundational academics in Mountain Province.</p>
                 </div>
                 <div class="bento-item">
                     <img src="Screenshot 2025-11-19 211813/Screenshot 2025-11-18 175701.png" alt="San Alphonso High School">
                     <span class="year-tag">2019 — 2025</span>
                     <h3>San Alphonso High School</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.6;">Secondary education specializing in STEM track with leadership development.</p>
+                    <p style="color:var(--text-secondary);line-height:1.6;">Secondary education specializing in STEM track with leadership development.</p>
                 </div>
                 <div class="bento-item">
                     <img src="Screenshot 2025-11-19 211813/Screenshot 2025-11-18 174232.png" alt="University of the Cordilleras">
                     <span class="year-tag">2025 — Present</span>
                     <h3>University of the Cordilleras</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.6;">Bachelor of Science in Computer Science (BSCS) — First Year</p>
+                    <p style="color:var(--text-secondary);line-height:1.6;">Bachelor of Science in Computer Science (BSCS) — First Year</p>
                 </div>
             </div>
         </section>
@@ -533,7 +466,7 @@
         <!-- ACHIEVEMENTS SECTION -->
         <section id="achievements" class="section">
             <div class="glass-card">
-                <h2 style="margin-bottom: 32px; font-weight: 600; font-size: 2rem; letter-spacing: -0.02em;">Honors & Recognition</h2>
+                <h2 style="margin-bottom:32px;font-weight:600;font-size:2rem;letter-spacing:-0.02em;">Honors & Recognition</h2>
                 <div class="award-list">
                     <div class="award-item">
                         <div class="award-icon">🎨</div>
@@ -545,7 +478,7 @@
                     <div class="award-item">
                         <div class="award-icon">🏊</div>
                         <div class="award-content">
-                            <h4>CARAA Swimming Representative (2015-2025)</h4>
+                            <h4>CARAA Swimming Representative (2015–2025)</h4>
                             <p>Decade-long competitive athletic achievement representing the region in swimming.</p>
                         </div>
                     </div>
@@ -559,7 +492,7 @@
                     <div class="award-item">
                         <div class="award-icon">💃</div>
                         <div class="award-content">
-                            <h4>Best Cultural Dancer Award (2016-2017)</h4>
+                            <h4>Best Cultural Dancer Award (2016–2017)</h4>
                             <p>Excellence in traditional performing arts and cultural representation.</p>
                         </div>
                     </div>
@@ -569,79 +502,234 @@
 
     </div>
 
+    <!-- =============================================
+         SCRIPTS
+    ============================================= -->
     <script>
-        // MATRIX RAIN EFFECT (Subtle, only on edges)
-        const matrixContainer = document.getElementById('matrixRain');
-        const chars = '01アイウエオカキクケコサシスセソタチツテト';
-        
-        function createMatrixColumn() {
-            const column = document.createElement('div');
-            column.className = 'matrix-column';
-            
-            // Only place columns on left and right 20% of screen
+        // ── MOUNTAIN SUNSET SKY ──────────────────────────────────────────
+        const canvas = document.getElementById('sky-canvas');
+        const ctx = canvas.getContext('2d');
+        const starsLayer = document.getElementById('stars-layer');
+        const matrixLayer = document.getElementById('matrix-layer');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', () => { resizeCanvas(); drawSky(lastScrollT); });
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+
+        function lerpColor(c1, c2, t) {
+            return {
+                r: Math.round(lerp(c1.r, c2.r, t)),
+                g: Math.round(lerp(c1.g, c2.g, t)),
+                b: Math.round(lerp(c1.b, c2.b, t))
+            };
+        }
+
+        function rgb(c)      { return `rgb(${c.r},${c.g},${c.b})`; }
+        function rgba(c, a)  { return `rgba(${c.r},${c.g},${c.b},${a})`; }
+        function easeInOut(t){ return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+        // Sunset → Night color stops
+        const SKY = {
+            top:         [{ r:20,  g:15,  b:60  }, { r:5,  g:5,  b:20  }],
+            mid:         [{ r:180, g:70,  b:30  }, { r:10, g:10, b:30  }],
+            horizon:     [{ r:255, g:120, b:40  }, { r:8,  g:8,  b:22  }],
+            lowerHorizon:[{ r:220, g:80,  b:20  }, { r:6,  g:6,  b:18  }],
+            sun:         [{ r:255, g:180, b:60  }, { r:10, g:10, b:30  }]
+        };
+
+        let lastScrollT = 0;
+
+        function drawSky(t) {
+            const W = canvas.width, H = canvas.height;
+            const te = easeInOut(Math.min(1, Math.max(0, t)));
+
+            const topC        = lerpColor(SKY.top[0],          SKY.top[1],          te);
+            const midC        = lerpColor(SKY.mid[0],          SKY.mid[1],          te);
+            const horizC      = lerpColor(SKY.horizon[0],      SKY.horizon[1],      te);
+            const lowerHorizC = lerpColor(SKY.lowerHorizon[0], SKY.lowerHorizon[1], te);
+
+            // Sky gradient
+            const grad = ctx.createLinearGradient(0, 0, 0, H * 0.75);
+            grad.addColorStop(0,    rgb(topC));
+            grad.addColorStop(0.35, rgb(midC));
+            grad.addColorStop(0.65, rgb(horizC));
+            grad.addColorStop(0.85, rgb(lowerHorizC));
+            grad.addColorStop(1,    'rgb(8,8,18)');
+
+            ctx.clearRect(0, 0, W, H);
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, W, H);
+
+            // Sun sinking as scroll increases
+            const sunOpacity  = Math.max(0, 1 - te * 1.6);
+            const sunProgress = Math.min(1, te * 1.4);
+            const sunY        = H * 0.44 + sunProgress * H * 0.26;
+            const sunRadius   = lerp(38, 26, te);
+
+            if (sunOpacity > 0.01) {
+                // Sun outer glow
+                const halo = ctx.createRadialGradient(W*0.5, sunY, sunRadius*0.5, W*0.5, sunY, sunRadius*6);
+                halo.addColorStop(0,   `rgba(255,200,80,${0.38 * sunOpacity})`);
+                halo.addColorStop(0.3, `rgba(255,140,40,${0.28 * sunOpacity})`);
+                halo.addColorStop(0.6, `rgba(220,80,20,${0.14 * sunOpacity})`);
+                halo.addColorStop(1,   'rgba(0,0,0,0)');
+                ctx.fillStyle = halo;
+                ctx.beginPath();
+                ctx.arc(W*0.5, sunY, sunRadius*6, 0, Math.PI*2);
+                ctx.fill();
+
+                // Sun disk
+                const disk = ctx.createRadialGradient(W*0.5, sunY, 0, W*0.5, sunY, sunRadius);
+                disk.addColorStop(0,   `rgba(255,255,200,${sunOpacity})`);
+                disk.addColorStop(0.4, `rgba(255,210,80,${sunOpacity})`);
+                disk.addColorStop(1,   `rgba(255,140,30,${sunOpacity * 0.8})`);
+                ctx.fillStyle = disk;
+                ctx.beginPath();
+                ctx.arc(W*0.5, sunY, sunRadius, 0, Math.PI*2);
+                ctx.fill();
+
+                // Horizon streak
+                const streak = ctx.createLinearGradient(W*0.1, 0, W*0.9, 0);
+                streak.addColorStop(0,    'rgba(255,100,20,0)');
+                streak.addColorStop(0.35, `rgba(255,140,40,${0.3 * sunOpacity})`);
+                streak.addColorStop(0.5,  `rgba(255,180,60,${0.5 * sunOpacity})`);
+                streak.addColorStop(0.65, `rgba(255,140,40,${0.3 * sunOpacity})`);
+                streak.addColorStop(1,    'rgba(255,100,20,0)');
+                ctx.fillStyle = streak;
+                ctx.fillRect(W*0.1, sunY, W*0.8, 28);
+            }
+
+            // Sunset clouds
+            if (te < 0.65) {
+                const cloudOpacity = (1 - te / 0.65) * 0.45;
+                ctx.save();
+                ctx.globalAlpha = cloudOpacity;
+                drawCloud(ctx, W*0.20, H*0.30, 130, 18, 'rgba(255,140,60,0.65)');
+                drawCloud(ctx, W*0.75, H*0.27, 100, 15, 'rgba(255,100,40,0.55)');
+                drawCloud(ctx, W*0.55, H*0.22, 150, 20, 'rgba(220,80,30,0.45)');
+                drawCloud(ctx, W*0.38, H*0.36, 80,  12, 'rgba(255,160,60,0.4)');
+                ctx.restore();
+            }
+        }
+
+        function drawCloud(ctx, x, y, w, h, color) {
+            ctx.fillStyle = color;
+            ctx.beginPath(); ctx.ellipse(x,          y,          w,       h,       0, 0, Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.ellipse(x - w*0.3,  y + h*0.3,  w*0.7,   h*0.7,   0, 0, Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.ellipse(x + w*0.35, y + h*0.2,  w*0.65,  h*0.65,  0, 0, Math.PI*2); ctx.fill();
+        }
+
+        // ── STARS ────────────────────────────────────────────────────────
+        const STARS = Array.from({ length: 200 }, () => ({
+            x: Math.random() * 100,
+            y: Math.random() * 55,
+            r: Math.random() * 1.6 + 0.3,
+            phase: Math.random() * Math.PI * 2
+        }));
+
+        function renderStars(opacity) {
+            let svg = `<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0">`;
+            const now = Date.now() * 0.001;
+            STARS.forEach(s => {
+                const tw = 0.55 + 0.45 * Math.sin(s.phase + now * (0.4 + s.r * 0.3));
+                svg += `<circle cx="${s.x}%" cy="${s.y}%" r="${s.r}" fill="white" opacity="${(opacity * tw).toFixed(2)}"/>`;
+            });
+            svg += '</svg>';
+            return svg;
+        }
+
+        // ── MATRIX RAIN ──────────────────────────────────────────────────
+        const MATRIX_CHARS = '01アイウエオカキクケコサシスセソタチツテト';
+        let matrixInterval = null;
+
+        function spawnMatrixColumn() {
             const side = Math.random() > 0.5 ? 'left' : 'right';
-            if (side === 'left') {
-                column.style.left = Math.random() * 20 + '%';
-            } else {
-                column.style.left = (80 + Math.random() * 20) + '%';
-            }
-            
-            column.style.animationDuration = (10 + Math.random() * 10) + 's';
-            column.style.animationDelay = Math.random() * 5 + 's';
-            
-            // Create random characters
-            let text = '';
+            const xPct = side === 'left'
+                ? Math.random() * 18
+                : 82 + Math.random() * 18;
+
+            const col = document.createElement('div');
+            col.className = 'matrix-column';
+            col.style.left = xPct + '%';
+            col.style.animationDuration = (10 + Math.random() * 9) + 's';
+            col.style.animationDelay = '0s';
+
+            let txt = '';
             for (let i = 0; i < 15; i++) {
-                text += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+                txt += MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)] + '<br>';
             }
-            column.innerHTML = text;
-            
-            matrixContainer.appendChild(column);
-            
-            // Remove after animation
-            setTimeout(() => {
-                column.remove();
-            }, parseFloat(column.style.animationDuration) * 1000 + 5000);
+            col.innerHTML = txt;
+            matrixLayer.appendChild(col);
+            setTimeout(() => col.remove(), 22000);
         }
 
-        // Create columns periodically
-        setInterval(createMatrixColumn, 800);
-        
-        // Initial burst
-        for (let i = 0; i < 15; i++) {
-            setTimeout(createMatrixColumn, i * 200);
+        // ── SCROLL HANDLER ───────────────────────────────────────────────
+        function updateScene(scrollRatio) {
+            lastScrollT = scrollRatio;
+            drawSky(scrollRatio);
+
+            // Stars fade in after 20% scroll
+            const starOpacity = Math.max(0, (scrollRatio - 0.2) / 0.5);
+            starsLayer.style.opacity = starOpacity;
+            if (starOpacity > 0) {
+                starsLayer.innerHTML = renderStars(Math.min(1, starOpacity));
+            }
+
+            // Matrix rain after 60% scroll
+            const matrixOpacity = Math.max(0, (scrollRatio - 0.6) / 0.3);
+            matrixLayer.style.opacity = matrixOpacity;
+
+            if (matrixOpacity > 0.25 && !matrixInterval) {
+                matrixInterval = setInterval(spawnMatrixColumn, 700);
+                for (let i = 0; i < 10; i++) setTimeout(spawnMatrixColumn, i * 160);
+            } else if (matrixOpacity <= 0.25 && matrixInterval) {
+                clearInterval(matrixInterval);
+                matrixInterval = null;
+                matrixLayer.innerHTML = '';
+            }
         }
 
-        // NAVIGATION FUNCTION (Fixed!)
+        window.addEventListener('scroll', () => {
+            const maxScroll = document.body.scrollHeight - window.innerHeight;
+            const t = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+            updateScene(t);
+        }, { passive: true });
+
+        // Star twinkle loop
+        function twinkleLoop() {
+            if (lastScrollT > 0.25) {
+                const starOpacity = Math.min(1, Math.max(0, (lastScrollT - 0.2) / 0.5));
+                starsLayer.innerHTML = renderStars(starOpacity);
+            }
+            requestAnimationFrame(twinkleLoop);
+        }
+        twinkleLoop();
+
+        // Initial draw
+        updateScene(0);
+
+        // ── NAVIGATION ───────────────────────────────────────────────────
         function showSection(sectionId, btn) {
-            // Hide all sections
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show selected section
-            const targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                targetSection.classList.add('active');
-            }
-            
-            // Update active button
-            document.querySelectorAll('.nav-btn').forEach(button => {
-                button.classList.remove('active');
-            });
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(sectionId);
+            if (target) target.classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            // Smooth scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Subtle spotlight effect on cards
+        // ── CARD SPOTLIGHT ────────────────────────────────────────────────
         document.querySelectorAll('.glass-card, .bento-item').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                card.style.background = `radial-gradient(circle 200px at ${x}px ${y}px, rgba(37, 99, 235, 0.08), transparent), var(--card-bg)`;
+                card.style.background = `radial-gradient(circle 200px at ${x}px ${y}px, rgba(37,99,235,0.08), transparent), var(--card-bg)`;
             });
             card.addEventListener('mouseleave', () => {
                 card.style.background = 'var(--card-bg)';
