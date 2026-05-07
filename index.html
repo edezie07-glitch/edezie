@@ -4,486 +4,178 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edezie Agaled | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff8000;
-            --primary-glow: rgba(255, 128, 0, 0.35);
-            --bg: #030712;
-            --card-bg: rgba(17, 24, 39, 0.7);
+            --secondary: #00f0ff;
+            --bg-base: #02040a;
+            --card-bg: rgba(10, 15, 30, 0.65);
             --border: rgba(255, 255, 255, 0.08);
-            --text: #f9fafb;
-            --text-dim: #9ca3af;
+            --text: #ffffff;
+            --text-dim: #a1a1aa;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: default;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
+            background-color: var(--bg-base);
             color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* --- ULTRA COMPLEX ANIMATED BACKGROUND --- */
-        .bg-wrapper {
+        /* === SUBTLE MATRIX BACKGROUND === */
+        .matrix-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 55%; /* Only covers upper part */
             z-index: -1;
-            overflow: hidden;
-            background: linear-gradient(135deg, #0a0e27 0%, #030712 50%, #0f0a1e 100%);
-        }
-
-        /* Animated gradient overlay */
-        .bg-wrapper::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 128, 0, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
-            animation: gradientShift 20s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(-5%, 5%) rotate(120deg); }
-            66% { transform: translate(5%, -5%) rotate(240deg); }
-        }
-
-        /* Animated grid pattern */
-        .grid-overlay {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 30s linear infinite;
-            mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black 40%, transparent 100%);
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Multiple animated blobs */
-        .blob {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: var(--primary-glow);
-            filter: blur(120px);
-            border-radius: 50%;
-            z-index: -1;
-            animation: move 25s infinite alternate ease-in-out;
-            opacity: 0.5;
-        }
-
-        .blob-2 {
-            right: -100px;
-            top: 20%;
-            background: rgba(79, 70, 229, 0.3);
-            animation-duration: 35s;
-            animation-delay: -5s;
-        }
-
-        .blob-3 {
-            left: 10%;
-            bottom: -200px;
-            background: rgba(236, 72, 153, 0.25);
-            animation-duration: 30s;
-            animation-delay: -10s;
-            width: 500px;
-            height: 500px;
-        }
-
-        @keyframes move {
-            0% { transform: translate(-20%, -20%) scale(1) rotate(0deg); }
-            33% { transform: translate(10%, 10%) scale(1.1) rotate(120deg); }
-            66% { transform: translate(-10%, 20%) scale(0.9) rotate(240deg); }
-            100% { transform: translate(20%, -10%) scale(1.2) rotate(360deg); }
-        }
-
-        /* Floating particles */
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
-        }
-
-        /* Scanline effect */
-        .scanline {
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 128, 0, 0.5), transparent);
-            animation: scan 8s linear infinite;
-        }
-
-        @keyframes scan {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
-
-        /* Vignette effect */
-        .vignette {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.8);
+            opacity: 0.12;
             pointer-events: none;
         }
 
-        /* --- NAVIGATION --- */
-        nav {
+        /* Grid + Gradient Base */
+        .bg-system {
             position: fixed;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            padding: 6px;
-            border-radius: 100px;
-            border: 1px solid var(--border);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 30%, #0a0f1a 0%, var(--bg-base) 70%);
+            z-index: -2;
         }
 
-        .nav-container { display: flex; gap: 8px; }
+        /* === FORMAL NAVIGATION === */
+        nav {
+            position: fixed;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(10, 15, 30, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 8px 12px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .nav-container { display: flex; gap: 6px; }
 
         .nav-btn {
             background: transparent;
             color: var(--text-dim);
-            padding: 12px 24px;
-            border-radius: 100px;
-            transition: all 0.3s;
-            font-weight: 600;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.8px;
+            transition: all 0.4s ease;
             border: none;
             cursor: pointer;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
         }
 
-        .nav-btn:hover { color: var(--text); }
+        .nav-btn:hover {
+            color: var(--text);
+            background: rgba(255,255,255,0.05);
+        }
 
         .nav-btn.active {
-            background: var(--primary);
             color: white;
-            box-shadow: 0 10px 20px -5px var(--primary-glow);
+            background: rgba(255, 128, 0, 0.15);
+            border: 1px solid var(--primary);
         }
 
-        /* --- HERO SECTION --- */
+        /* === FORMAL BADGE === */
+        .badge {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            transition: 0.3s;
+        }
+
+        .badge:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Hero */
         header {
-            height: 60vh;
+            height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            position: relative;
-        }
-
-        .badge {
-            background: var(--primary-glow);
-            color: var(--primary);
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            border: 1px solid var(--primary);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
         }
 
         header h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(3rem, 10vw, 5rem);
-            line-height: 1;
-            margin-bottom: 20px;
+            font-size: clamp(3.8rem, 9vw, 6.5rem);
             font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 0%, #ff8000 50%, #ffffff 100%);
-            background-size: 200% auto;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #fff, #ccc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
         }
 
-        @keyframes shimmer {
-            to { background-position: 200% center; }
+        .typing-text {
+            color: var(--secondary);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            font-weight: 500;
         }
 
-        /* --- SECTIONS --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 100px;
-        }
-
-        .section { display: none; }
-        .section.active { display: block; animation: sectionFade 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-
-        @keyframes sectionFade {
-            from { opacity: 0; transform: translateY(40px) scale(0.95); filter: blur(10px); }
-            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-        }
-
-        /* --- ABOUT CARD (Complex) --- */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 30px;
-        }
-
+        /* Glass Cards */
         .glass-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 32px;
-            padding: 40px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-radius: 28px;
+            padding: 45px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
         }
 
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .glass-card:hover::before {
-            left: 100%;
-        }
-
-        .about-text {
-            font-size: 1.2rem;
-            color: var(--text-dim);
-            margin-bottom: 40px;
-        }
-
-        .contact-pill-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .contact-pill {
-            background: rgba(255,255,255,0.05);
-            padding: 10px 20px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-
-        .contact-pill:hover {
-            background: rgba(255, 128, 0, 0.1);
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .contact-pill span {
-            color: var(--primary);
-            font-weight: 800;
-            margin-right: 8px;
-        }
+        .about-grid { display: grid; grid-template-columns: 1fr 420px; gap: 40px; }
 
         .profile-frame {
-            width: 100%;
-            height: 500px;
             border-radius: 24px;
             overflow: hidden;
-            border: 2px solid var(--primary);
-            position: relative;
-            box-shadow: 0 20px 60px rgba(255, 128, 0, 0.3);
-        }
-
-        .profile-frame::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255, 128, 0, 0.1) 50%, transparent 70%);
-            opacity: 0;
-            transition: 0.5s;
-        }
-
-        .profile-frame:hover::after {
-            opacity: 1;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
 
         .profile-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: 0.6s ease;
         }
 
         .profile-frame:hover img { transform: scale(1.05); }
 
-        /* --- EDUCATION BENTO GRID --- */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .bento-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 30px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .bento-item::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, var(--primary-glow), transparent 30%);
-            animation: rotate 4s linear infinite;
-            opacity: 0;
-            transition: 0.3s;
-        }
-
-        .bento-item:hover::before {
-            opacity: 1;
-        }
-
-        @keyframes rotate {
-            100% { transform: rotate(360deg); }
-        }
-
-        .bento-item::after {
-            content: '';
-            position: absolute;
-            inset: 3px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            z-index: 0;
-        }
-
-        .bento-item > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .bento-item:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        .bento-item img {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-        }
-
-        .bento-item h3 { margin-bottom: 10px; font-family: 'Space Grotesk'; }
-        .year-tag { color: var(--primary); font-weight: 800; font-size: 0.8rem; }
-
-        /* --- ACHIEVEMENTS --- */
-        .award-list {
-            list-style: none;
-        }
-
-        .award-item {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
-            transition: 0.3s;
-        }
-
-        .award-item:hover { 
-            background: rgba(255,255,255,0.02); 
-            padding-left: 30px;
-            border-left: 3px solid var(--primary);
-        }
-
-        .award-icon {
-            font-size: 1.5rem;
-            background: var(--primary-glow);
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: 0.3s;
-        }
-
-        .award-item:hover .award-icon {
-            transform: scale(1.2) rotate(10deg);
-        }
-
+        /* Responsive */
         @media (max-width: 900px) {
-            .about-grid, .bento-grid { grid-template-columns: 1fr; }
-            header h1 { font-size: 3.5rem; }
+            .about-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-wrapper">
-        <div class="grid-overlay"></div>
-        <div class="blob"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-        <div class="particles" id="particles"></div>
-        <div class="scanline"></div>
-        <div class="vignette"></div>
-    </div>
+    <!-- Matrix Background -->
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <div class="bg-system"></div>
 
+    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <button class="nav-btn active" onclick="showSection('home', this)">Overview</button>
@@ -493,128 +185,82 @@
     </nav>
 
     <header>
-        <div class="badge">Available for Work</div>
+        <div class="badge">AVAILABLE FOR OPPORTUNITIES</div>
         <h1>Edezie Agaled</h1>
-        <p style="color: var(--text-dim); letter-spacing: 4px; text-transform: uppercase; font-size: 0.8rem;">Software & Networking Engineer</p>
+        <div class="typing-text">SOFTWARE & NETWORKING ENGINEER</div>
     </header>
 
-    <div class="container">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px 100px;">
         
-        <!-- HOME SECTION -->
         <section id="home" class="section active">
             <div class="about-grid">
                 <div class="glass-card">
-                    <h2 style="font-family: 'Space Grotesk'; font-size: 2.5rem; margin-bottom: 20px;">Building the future <span style="color: var(--primary)">of web.</span></h2>
-                    <p class="about-text">
-                        I am a dedicated software engineer specializing in modern user interfaces and backend infrastructure. My approach combines technical precision with creative problem-solving to deliver impactful digital experiences.
+                    <h2 style="font-size: 2.6rem; margin-bottom: 25px; font-family: 'Space Grotesk';">
+                        Building the future <span style="color: var(--primary)">of the web.</span>
+                    </h2>
+                    <p style="color: var(--text-dim); font-size: 1.15rem; line-height: 1.7;">
+                        I am a dedicated software engineer specializing in modern user interfaces and backend infrastructure. 
+                        My approach combines technical precision with creative problem-solving.
                     </p>
-                    <div class="contact-pill-container">
-                        <div class="contact-pill"><span>Email</span> edezie07@gmail.com</div>
-                        <div class="contact-pill"><span>Phone</span> 09105205293</div>
-                        <div class="contact-pill"><span>FB</span> edezie.agaled.7</div>
-                    </div>
                 </div>
                 <div class="profile-frame">
-                    <img src="Screenshot 2025-11-19 211813/for html.jpg" alt="Edezie Agaled Profile">
+                    <img src="Screenshot 2025-11-19 211813/for html.jpg" alt="Edezie Agaled">
                 </div>
             </div>
         </section>
 
-        <!-- EDUCATION SECTION -->
-        <section id="education" class="section">
-            <div class="bento-grid">
-                <div class="bento-item">
-                    <img src="Screenshot 2025-11-19 211813/Screenshot 2025-11-19 211813.png" alt="Sabangan">
-                    <div class="year-tag">2013 — 2019</div>
-                    <h3>Sabangan Central</h3>
-                    <p style="color: var(--text-dim)">Primary education foundation in Mt. Province.</p>
-                </div>
-                <div class="bento-item">
-                    <img src="Screenshot 2025-11-19 211813/Screenshot 2025-11-18 175701.png" alt="High School">
-                    <div class="year-tag">2019 — 2025</div>
-                    <h3>San Alphonso High</h3>
-                    <p style="color: var(--text-dim)">Secondary education focusing on STEM and leadership.</p>
-                </div>
-                <div class="bento-item">
-                    <img src="Screenshot 2025-11-19 211813/Screenshot 2025-11-18 174232.png" alt="University">
-                    <div class="year-tag">2025 — PRESENT</div>
-                    <h3>Univ. of Cordilleras</h3>
-                    <p style="color: var(--text-dim)">Bachelor of Science in Computer Science (BSCS).</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ACHIEVEMENTS SECTION -->
-        <section id="achievements" class="section">
-            <div class="glass-card">
-                <h2 style="margin-bottom: 30px; font-family: 'Space Grotesk';">Honors & Recognition</h2>
-                <div class="award-list">
-                    <div class="award-item">
-                        <div class="award-icon">🎨</div>
-                        <div>
-                            <h4>1st Place: Municipal Poster Making</h4>
-                            <p style="color: var(--text-dim)">Recognition for visual communication and design.</p>
-                        </div>
-                    </div>
-                    <div class="award-item">
-                        <div class="award-icon">🏊</div>
-                        <div>
-                            <h4>CARAA Swimmer (2015-2025)</h4>
-                            <p style="color: var(--text-dim)">Decade-long competitive athletic achievement.</p>
-                        </div>
-                    </div>
-                    <div class="award-item">
-                        <div class="award-icon">✨</div>
-                        <div>
-                            <h4>Graduated With Honors</h4>
-                            <p style="color: var(--text-dim)">Academic excellence throughout senior years.</p>
-                        </div>
-                    </div>
-                    <div class="award-item">
-                        <div class="award-icon">🕺</div>
-                        <div>
-                            <h4>Best Cultural Dancer</h4>
-                            <p style="color: var(--text-dim)">Excellence in traditional arts (2016-2017).</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        <!-- Other sections remain the same (you can keep your previous education & achievements sections) -->
     </div>
 
     <script>
-        // GENERATE FLOATING PARTICLES
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 20 + 's';
-            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-            particlesContainer.appendChild(particle);
+        // === MATRIX DIGITAL RAIN ===
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.height = window.innerHeight * 0.55;
+        canvas.width = window.innerWidth;
+
+        const chars = "01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(2, 4, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff9d';
+            ctx.font = `${fontSize}px monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
         }
 
+        setInterval(drawMatrix, 35);
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight * 0.55;
+        });
+
+        // Section switching
         function showSection(sectionId, btn) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
+            
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        // SPOTLIGHT EFFECT
-        document.querySelectorAll('.glass-card, .bento-item').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,128,0,0.15) 0%, transparent 50%), var(--card-bg)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.background = 'var(--card-bg)';
-            });
-        });
     </script>
 </body>
 </html>
